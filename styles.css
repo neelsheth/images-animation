@@ -1,24 +1,43 @@
+:root {
+  --carousel-width: 300px;
+  --carousel-height: 200px;
+  --item-width: 220px;
+  --item-height: 140px;
+  --perspective: 1200px;
+  --translateZ: 400px;
+  --animation-duration: 10s;
+}
+
 .carousel-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: radial-gradient(circle at center, #050505, #0d0d0d);
-  perspective: 1200px;
+  perspective: var(--perspective);
 }
 
 .carousel {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: var(--carousel-width);
+  height: var(--carousel-height);
   transform-style: preserve-3d;
-  transition: transform 1s ease-in-out;
+  animation: rotateCarousel var(--animation-duration) linear infinite;
+}
+
+@keyframes rotateCarousel {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
 
 .carousel-item {
   position: absolute;
-  width: 220px;
-  height: 140px;
+  width: var(--item-width);
+  height: var(--item-height);
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
@@ -31,4 +50,16 @@
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
   transition: transform 0.8s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.carousel-item:hover {
+  transform: scale(1.1) translateZ(calc(var(--translateZ) + 50px));
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
 }
